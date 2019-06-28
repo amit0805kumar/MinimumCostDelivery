@@ -1,0 +1,25 @@
+{
+  "name": "minimumcostdelivery",
+  "version": "1.0.0",
+  "description": "API for min cost delivey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amit0805kumar/MinimumCostDelivery.git"
+  },
+  "author": "Amit Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amit0805kumar/MinimumCostDelivery/issues"
+  },
+  "homepage": "https://github.com/amit0805kumar/MinimumCostDelivery#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.1.0",
+    "mongoose": "^5.6.1",
+    "nodemon": "^1.19.1"
+  }
+}
