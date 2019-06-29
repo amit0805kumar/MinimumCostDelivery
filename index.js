@@ -54,17 +54,44 @@ app.post('/', async (req, res) => {
             weight,
             minDistance
         } = data;
+        let totalWeight = 0;
 
-        const input = {}
-        if (A) input.A = A;
-        if (B) input.B = B;
-        if (C) input.C = C;
-        if (D) input.D = D;
-        if (E) input.E = E;
-        if (F) input.F = F;
-        if (G) input.G = G;
-        if (H) input.H = H;
-        if (I) input.I = I;
+        if (A) {
+
+            totalWeight += (weight.A * A);
+        }
+        if (B) {
+
+            totalWeight += (weight.B * B);
+        }
+        if (C) {
+
+            totalWeight += (weight.C * C);
+        }
+        if (D) {
+
+            totalWeight += (weight.D * D);
+        }
+        if (E) {
+
+            totalWeight += (weight.E * E);
+        }
+        if (F) {
+
+            totalWeight += (weight.F * F);
+        }
+        if (G) {
+
+            totalWeight += (weight.G * G);
+        }
+        if (H) {
+
+            totalWeight += (weight.H * H);
+        }
+        if (I) {
+
+            totalWeight += (weight.I * I);
+        }
 
         let activeSpot = {
             "C1": false,
@@ -76,30 +103,40 @@ app.post('/', async (req, res) => {
         if (D || E || F) activeSpot.C2 = true;
         if (G || H || I) activeSpot.C3 = true;
 
-        let cost = 0;
+        let lenght = 0;
 
         if (activeSpot.C1 && !activeSpot.C2 && !activeSpot.C3) {
-            cost = minDistance.C1.L1;
+            lenght = minDistance.C1.L1;
         } else if (!activeSpot.C1 && activeSpot.C2 && !activeSpot.C3) {
-            cost = minDistance.C2.L1;
+            lenght = minDistance.C2.L1;
         } else if (!activeSpot.C1 && !activeSpot.C2 && activeSpot.C3) {
-            cost = minDistance.C3.L1;
+            lenght = minDistance.C3.L1;
         } else if (activeSpot.C1 && activeSpot.C2 && !activeSpot.C3) {
-           
-            
+            lenght = minDistance.C1.C2 + minDistance.C2.L1;
         } else if (activeSpot.C1 && !activeSpot.C2 && activeSpot.C3) {
-            
-            
+            lenght = minDistance.C1.L1 + minDistance.L1.C3 + minDistance.C3.L1;
         } else if (!activeSpot.C1 && activeSpot.C2 && activeSpot.C3) {
-           
+            lenght = minDistance.C2.C3 + minDistance.C3.L1;
+        } else if (activeSpot.C1 && activeSpot.C2 && activeSpot.C3) {
+            lenght = minDistance.C1.C2 + minDistance.C2.C3 + minDistance.C3.L1;
+        }
+
+
+        let cost = 0;
+        if (totalWeight <= 5) {
+            cost = 10 * lenght;
+        } else {
+            cost = 10 * lenght;
+            console.log(cost);
             
-        } else if (!activeSpot.C1 && !activeSpot.C2 && activeSpot.C3) {
-            
-            
+            cost += ((parseInt((totalWeight - 5)/5)) * 8 * lenght);
+          
         }
 
 
         res.json({
+            weight: totalWeight,
+            dist: lenght,
             cost: cost
         });
     } catch (err) {
