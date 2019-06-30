@@ -7,14 +7,10 @@ const app = express();
 app.get('/', function(request, response) {
     response.sendFile(path.join(__dirname + '/index.html'));
 });
-/*app.use(express.json({
+app.use(express.json({
     extended: false
 }));
 
-app.get('/', async (req, res) => {
-    res.send('Api running');
-
-});
 
 app.post('/app', async (req, res) => {
     try {
@@ -96,7 +92,7 @@ app.post('/app', async (req, res) => {
         console.error(err.message);
         res.status(400).send('Server Error');
     }
-});*/
+});
 
 
 const PORT = process.env.PORT || 5000;
