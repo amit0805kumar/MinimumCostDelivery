@@ -1,18 +1,13 @@
 const express = require('express');
 const data = require('./data.json');
-//const {
-//    check,
-//    validationResult
-//} = require('express-validator');
-
-
+var path = require('path');
 
 const app = express();
 
-//app.use(express.urlencoded({
-//    extended: false
-//}));
-app.use(express.json({
+app.get('/', function(request, response) {
+    response.sendFile(path.join(__dirname + '/index.html'));
+});
+/*app.use(express.json({
     extended: false
 }));
 
@@ -101,7 +96,7 @@ app.post('/app', async (req, res) => {
         console.error(err.message);
         res.status(400).send('Server Error');
     }
-});
+});*/
 
 
 const PORT = process.env.PORT || 5000;
