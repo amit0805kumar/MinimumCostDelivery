@@ -1,41 +1,22 @@
 const express = require('express');
 const data = require('./data.json');
-const {
-    check,
-    validationResult
-} = require('express-validator');
-//const mongoose = require('mongoose');
+//const {
+//    check,
+//    validationResult
+//} = require('express-validator');
+
 
 
 const app = express();
 
-//const mongoUI = "mongodb+srv://amit:amit@assignment-ixcpu.mongodb.net/test?retryWrites=true&w=majority";
-
-/*
-const connectDb = async () => {
-    try {
-        await mongoose.connect(mongoUI, {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-        });
-        console.log("MongoDb connected...");
-    } catch (err) {
-        console.error(err);
-        process.exit(1);
-    }
-}
-*/
-
-//connectDb();
-app.use(express.urlencoded({
-    extended: false
-}));
+//app.use(express.urlencoded({
+//    extended: false
+//}));
 app.use(express.json({
     extended: false
 }));
 
-app.post('/', async (req, res) => {
+app.post('/app', async (req, res) => {
     try {
 
         const {
@@ -50,49 +31,22 @@ app.post('/', async (req, res) => {
             I
         } = req.body;
 
+        const itemArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+
+
         const {
             weight,
             minDistance
         } = data;
         let totalWeight = 0;
 
-        if (A) {
 
-            totalWeight += (weight.A * A);
-        }
-        if (B) {
-
-            totalWeight += (weight.B * B);
-        }
-        if (C) {
-
-            totalWeight += (weight.C * C);
-        }
-        if (D) {
-
-            totalWeight += (weight.D * D);
-        }
-        if (E) {
-
-            totalWeight += (weight.E * E);
-        }
-        if (F) {
-
-            totalWeight += (weight.F * F);
-        }
-        if (G) {
-
-            totalWeight += (weight.G * G);
-        }
-        if (H) {
-
-            totalWeight += (weight.H * H);
-        }
-        if (I) {
-
-            totalWeight += (weight.I * I);
-        }
-
+        itemArray.map(item => {
+            if (req.body[item]) {
+                totalWeight += (weight[item] * req.body[item]);
+            }
+        });
+    
         let activeSpot = {
             "C1": false,
             "C2": false,
@@ -127,10 +81,9 @@ app.post('/', async (req, res) => {
             cost = 10 * lenght;
         } else {
             cost = 10 * lenght;
-            console.log(cost);
-            
-            cost += ((parseInt((totalWeight - 5)/5)) * 8 * lenght);
-          
+
+            cost += ((parseInt((totalWeight - 5) / 5)) * 8 * lenght);
+
         }
 
 
@@ -148,5 +101,5 @@ app.post('/', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server started on ${PORT}`);
+//    console.log(`Server started on ${PORT}`);
 });
