@@ -16,6 +16,11 @@ app.use(express.json({
     extended: false
 }));
 
+app.get('/', async (req, res) => {
+    res.send('Api running');
+
+});
+
 app.post('/app', async (req, res) => {
     try {
 
